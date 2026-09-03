@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DUMAX - Be Different. Be Max.</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>DUMAX</h1>
+            <span>Be Different. Be Max.</span>
+        </div>
+        <button class="nav-toggle" id="navToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>DUMAX</h2>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>خانه</span>
+            </li>
+            <li data-page="games">
+                <i class="fas fa-gamepad"></i>
+                <span>بازی‌ها</span>
+            </li>
+            <li data-page="notes">
+                <i class="fas fa-sticky-note"></i>
+                <span>یادداشت‌ها</span>
+            </li>
+            <li data-page="photo">
+                <i class="fas fa-camera"></i>
+                <span>خانه عکس</span>
+            </li>
+            <li data-page="movies">
+                <i class="fas fa-film"></i>
+                <span>فیلم و انیمیشن</span>
+            </li>
+            <li data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>پروفایل</span>
+            </li>
+            <li data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>تنظیمات</span>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>خروج</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Home Page -->
+        <section id="page-home" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>به DUMAX خوش آمدید</h1>
+                    <p>همه چیز در یک برنامه</p>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <div class="quick-card" data-page="games">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>بازی‌ها</h3>
+                    <p>دانلود بازی‌های جدید</p>
+                </div>
+                <div class="quick-card" data-page="notes">
+                    <i class="fas fa-sticky-note"></i>
+                    <h3>یادداشت‌ها</h3>
+                    <p>یادداشت‌های خود را بنویسید</p>
+                </div>
+                <div class="quick-card" data-page="photo">
+                    <i class="fas fa-camera"></i>
+                    <h3>خانه عکس</h3>
+                    <p>ویرایش عکس‌ها</p>
+                </div>
+                <div class="quick-card" data-page="movies">
+                    <i class="fas fa-film"></i>
+                    <h3>فیلم و انیمیشن</h3>
+                    <p>تماشای محتوای جدید</p>
+                </div>
+            </div>
+            <div class="search-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="globalSearch" placeholder="جست‌وجو در همه بخش‌ها...">
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </section>
+
+        <!-- Games Page -->
+        <section id="page-games" class="page">
+            <div class="page-header">
+                <h2><i class="fas fa-gamepad"></i> بازی‌ها</h2>
+                <div class="search-box small">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="gameSearch" placeholder="جست‌وجوی بازی...">
+                </div>
+            </div>
+            <div class="games-grid" id="gamesGrid"></div>
+        </section>
+
+        <!-- Notes Page -->
+        <section id="page-notes" class="page">
+            <div class="page-header">
+                <h2><i class="fas fa-sticky-note"></i> یادداشت‌ها</h2>
+                <button class="btn-primary" id="addNoteBtn">
+                    <i class="fas fa-plus"></i> جدید
+                </button>
+            </div>
+            <div class="notes-toolbar">
+                <div class="search-box small">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="noteSearch" placeholder="جست‌وجوی یادداشت...">
+                </div>
+                <div class="note-filters">
+                    <button class="filter-btn active" data-filter="all">همه</button>
+                    <button class="filter-btn" data-filter="pinned">پین شده</button>
+                </div>
+            </div>
+            <div class="notes-grid" id="notesGrid"></div>
+        </section>
+
+        <!-- Photo Editor Page -->
+        <section id="page-photo" class="page">
+            <div class="page-header">
+                <h2><i class="fas fa-camera"></i> خانه عکس</h2>
+            </div>
+            <div class="photo-editor">
+                <div class="editor-toolbar">
+                    <button id="loadImageBtn" class="btn-primary">
+                        <i class="fas fa-folder-open"></i> انتخاب عکس
+                    </button>
+                    <div class="editor-actions">
+                        <button id="undoBtn" class="btn-secondary" disabled>
+                            <i class="fas fa-undo"></i>
+                        </button>
+                        <button id="redoBtn" class="btn-secondary" disabled>
+                            <i class="fas fa-redo"></i>
+                        </button>
+                        <button id="saveImageBtn" class="btn-success" disabled>
+                            <i class="fas fa-save"></i> ذخیره
+                        </button>
+                    </div>
+                </div>
+                <div class="editor-canvas-wrapper">
+                    <canvas id="imageCanvas"></canvas>
+                </div>
+                <div class="editor-controls">
+                    <div class="control-group">
+                        <h4>فیلترها</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn" data-filter="none">بدون فیلتر</button>
+                            <button class="filter-btn" data-filter="grayscale">سیاه سفید</button>
+                            <button class="filter-btn" data-filter="sepia">سپیا</button>
+                            <button class="filter-btn" data-filter="brightness">روشنایی</button>
+                            <button class="filter-btn" data-filter="contrast">کنتراست</button>
+                            <button class="filter-btn" data-filter="saturate">اشباع</button>
+                            <button class="filter-btn" data-filter="hue-rotate">رنگ</button>
+                            <button class="filter-btn" data-filter="blur">محو</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <h4>تنظیمات</h4>
+                        <div class="slider-control">
+                            <label>روشنایی: <span id="brightnessValue">100</span>%</label>
+                            <input type="range" id="brightnessSlider" min="0" max="200" value="100">
+                        </div>
+                        <div class="slider-control">
+                            <label>کنتراست: <span id="contrastValue">100</span>%</label>
+                            <input type="range" id="contrastSlider" min="0" max="200" value="100">
+                        </div>
+                        <div class="slider-control">
+                            <label>اشباع: <span id="saturateValue">100</span>%</label>
+                            <input type="range" id="saturateSlider" min="0" max="200" value="100">
+                        </div>
+                        <div class="button-group">
+                            <button id="rotateBtn" class="btn-secondary">
+                                <i class="fas fa-rotate-right"></i> چرخش
+                            </button>
+                            <button id="flipBtn" class="btn-secondary">
+                                <i class="fas fa-arrows-left-right"></i> آینه
+                            </button>
+                            <button id="addTextBtn" class="btn-secondary">
+                                <i class="fas fa-font"></i> متن
+                            </button>
+                            <button id="addFrameBtn" class="btn-secondary">
+                                <i class="fas fa-border-all"></i> قاب
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Movies Page -->
+        <section id="page-movies" class="page">
+            <div class="page-header">
+                <h2><i class="fas fa-film"></i> فیلم و انیمیشن</h2>
+                <div class="search-box small">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="movieSearch" placeholder="جست‌وجوی فیلم...">
+                </div>
+            </div>
+            <div class="movies-grid" id="moviesGrid"></div>
+        </section>
+
+        <!-- Profile Page -->
+        <section id="page-profile" class="page">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">
+                        <img src="assets/images/default-avatar.png" alt="پروفایل">
+                        <button id="changeAvatarBtn" class="avatar-edit">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h2 id="profileName">کاربر مهمان</h2>
+                    <p id="profileEmail">guest@dumax.com</p>
+                </div>
+                <div class="profile-form">
+                    <div class="form-group">
+                        <label>نام کاربری</label>
+                        <input type="text" id="editNameInput" placeholder="نام خود را وارد کنید">
+                    </div>
+                    <button id="updateProfileBtn" class="btn-primary">بروزرسانی پروفایل</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Page -->
+        <section id="page-settings" class="page">
+            <div class="page-header">
+                <h2><i class="fas fa-cog"></i> تنظیمات</h2>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-moon"></i>
+                        <div>
+                            <h4>حالت تاریک</h4>
+                            <p>تغییر تم برنامه</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-bell"></i>
+                        <div>
+                            <h4>اعلان‌ها</h4>
+                            <p>دریافت اعلان‌ها</p>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="notificationToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-language"></i>
+                        <div>
+                            <h4>زبان</h4>
+                            <p>انتخاب زبان برنامه</p>
+                        </div>
+                    </div>
+                    <select id="languageSelect" class="setting-select">
+                        <option value="fa">فارسی</option>
+                        <option value="en">English</option>
+                        <option value="az">Azərbaycanca</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h4>حریم خصوصی</h4>
+                            <p>تنظیمات حریم خصوصی</p>
+                        </div>
+                    </div>
+                    <button class="btn-secondary" id="privacyBtn">مشاهده</button>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <h4>درباره DUMAX</h4>
+                            <p>اطلاعات برنامه</p>
+                        </div>
+                    </div>
+                    <button class="btn-secondary" id="aboutBtn">درباره</button>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="fas fa-code-branch"></i>
+                        <div>
+                            <h4>نسخه</h4>
+                            <p>نسخه برنامه</p>
+                        </div>
+                    </div>
+                    <span class="version-badge">v1.0.0</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal" id="noteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="noteModalTitle">یادداشت جدید</h3>
+                <button class="modal-close" id="closeNoteModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="noteTitle" placeholder="عنوان یادداشت">
+                <textarea id="noteContent" placeholder="متن یادداشت..."></textarea>
+                <div class="note-options">
+                    <div class="color-picker">
+                        <label>رنگ:</label>
+                        <input type="color" id="noteColor" value="#ffffff">
+                    </div>
+                    <label class="switch small">
+                        <input type="checkbox" id="notePinned">
+                        <span class="slider"></span>
+                        پین شده
+                    </label>
+                </div>
+                <input type="hidden" id="noteId">
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="deleteNoteBtn">حذف</button>
+                <button class="btn-primary" id="saveNoteBtn">ذخیره</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content auth-modal">
+            <div class="modal-header">
+                <h3 id="authModalTitle">ورود به DUMAX</h3>
+                <button class="modal-close" id="closeAuthModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">ورود</button>
+                    <button class="auth-tab" data-tab="register">ثبت‌نام</button>
+                </div>
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" id="loginEmail" placeholder="ایمیل خود را وارد کنید" required>
+                    </div>
+                    <div class="form-group">
+                        <label>رمز عبور</label>
+                        <input type="password" id="loginPassword" placeholder="رمز عبور را وارد کنید" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">ورود</button>
+                </form>
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label>نام کاربری</label>
+                        <input type="text" id="registerName" placeholder="نام خود را وارد کنید" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" id="registerEmail" placeholder="ایمیل خود را وارد کنید" required>
+                    </div>
+                    <div class="form-group">
+                        <label>رمز عبور</label>
+                        <input type="password" id="registerPassword" placeholder="رمز عبور را وارد کنید" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">ثبت‌نام</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/photo-editor.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/movies.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>
