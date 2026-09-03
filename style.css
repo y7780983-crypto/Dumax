@@ -566,3 +566,6 @@ body {
 .flex { display: flex; }
 .flex-center { align-items: center; justify-content: center; }
 .gap-1 { gap: 1rem; }
+body {
+    background: red !important;
+}
